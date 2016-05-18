@@ -29,7 +29,8 @@
  * PURPOSE.  
  **********************************************************************/
 
-#pragma once
+#ifndef _GLTOOLS_H
+#define _GLTOOLS_H
 
 #ifdef WIN32
 #include <windows.h> //required for GL in Windows
@@ -78,3 +79,4 @@ protected:
 	static std::vector<unsigned int> textures_ids;
 };
 
+#endif

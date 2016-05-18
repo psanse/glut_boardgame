@@ -1,3 +1,5 @@
+//boardgl.h: contains the painting functions for the board
+
 #ifndef __BOARD_GL_H__
 #define __BOARD_GL_H__
 

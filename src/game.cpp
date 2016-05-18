@@ -8,9 +8,10 @@
 #include "boardgl.h"
 #include "glut.h"
 
-#define GRID_SIZE	5		//4x4 grid board
+#define GRID_SIZE	5		//NxN grid
 
-//call back declarations
+/////////////////////////////////
+//call back declarations: will be called by glut when registered
 void OnDraw(void); 
 void OnKeyboardDown(unsigned char key, int x, int y); 
 void OnMouseClick(int button,int state, int x,int y);
@@ -31,33 +32,41 @@ int main(int argc,char* argv[]){
 	glutCreateWindow("MiJuego");
 
 	
-	//Registrar los callbacks
+	//Register callbacks
 	glutDisplayFunc(OnDraw);
 	glutKeyboardFunc(OnKeyboardDown);
 	glutMouseFunc(OnMouseClick);
-  //glutTimerFunc(25,OnTimer,0);    //set timer if required
+	//glutTimerFunc(25,OnTimer,0);			 //set timer if required, currently not used
 
-	//set light and perspective
+	//sets light and perspective
 	scene.init();
 	
-	//pasarle el control a GLUT,que llamara a los callbacks
+	//glut takes control
 	glutMainLoop();	
 
 	return 0;   
 }
 
 void OnDraw(void){
+//////////////////////
+//captures drawing event
+//gives control to scene
 	scene.Draw();
 	glutSwapBuffers();
 }
 
 void OnKeyboardDown(unsigned char key, int x_t, int y_t){
+//////////////////////
+//captures keyboard event
+//gives control to scene
 	scene.KeyDown(key);
 	glutPostRedisplay();
 }
 
 void OnMouseClick(int b,int state, int x,int y){
-//captures clicks with mouse and if CTRL or SHIFT is pressed before
+//////////////
+//captures clicks with mouse with or without special keys (CTRL or SHIFT)
+//gives control to board scene
 	bool down=(state==GLUT_DOWN);
 	int button;
 	if(b==GLUT_LEFT_BUTTON){
@@ -79,9 +88,9 @@ void OnMouseClick(int b,int state, int x,int y){
 
 
 //void OnTimer(int value){
-	//****	
+	//****WRITE TIMER CODE HERE
 
-	//no borrar estas lineas
+	//sets new timer (do not delete)
 //	glutTimerFunc(25,OnTimer,0);
 //	glutPostRedisplay();
 //}

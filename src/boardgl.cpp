@@ -46,7 +46,7 @@ void BoardGL::DrawCell(int i,int j){
 
 	float glx, gly;
 	switch(m_board->getTab()[i][j].getType()){
-	case Object::DAMA_VERDE:
+	case Object::QUEEN_GREEN:
 		cell2center(i, j, glx, gly);
 		glDisable(GL_LIGHTING);
 		GLTools::Color(gltools::GREEN);
@@ -56,7 +56,7 @@ void BoardGL::DrawCell(int i,int j){
 		glEnable(GL_LIGHTING);
 
 		break;
-	case Object::DAMA_NEGRA:
+	case Object::QUEEN_BLACK:
 		cell2center(i, j, glx, gly);
 		glDisable(GL_LIGHTING);
 		GLTools::Color(gltools::BLACK);
@@ -66,7 +66,7 @@ void BoardGL::DrawCell(int i,int j){
 		glEnable(GL_LIGHTING);
 
 		break;
-	case Object::VACIO:
+	case Object::EMPTY_CELL:
 	default:
 		;
 	}
@@ -115,9 +115,7 @@ void BoardGL::MouseButton(int x,int y,int button,bool down, bool sKey, bool ctrl
 
 /////////
 //computes cell coordinates from mouse coordinates
-	//	cout<<"("<<x<<","<<y<<")"<<endl;
-
-	//conversion to world coordindates
+	
 	GLint viewport[4];
     GLdouble modelview[16];
     GLdouble projection[16];
@@ -133,11 +131,9 @@ void BoardGL::MouseButton(int x,int y,int button,bool down, bool sKey, bool ctrl
     glReadPixels( x, int(winY), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ );
 	gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);      
    
-//	cout<<"("<<posX<<","<<posY<<","<<posZ<<")"<<endl;
-	world2cell(posX,posY,xcell_sel, ycell_sel);					//cell coordinates
-	cout<<"("<<xcell_sel<<","<<ycell_sel<<")"<<endl;
-
-
+	//finally cell coordinates
+	world2cell(posX,posY,xcell_sel, ycell_sel);					
+		
 ///////////////////////////	
 //capture other mouse events
 
@@ -155,8 +151,13 @@ void BoardGL::MouseButton(int x,int y,int button,bool down, bool sKey, bool ctrl
 	else if(button==MOUSE_MIDDLE_BUTTON)
 		midButton=down;
 ///////////////////////////
-
+	
 	//***WRITE ACTIONS CONNECTED TO MOUSE STATE HERE
+
+	//print cell coordinates after click
+	if(down)
+		cout<<"("<<xcell_sel<<","<<ycell_sel<<")"<<endl;
+	
 }
 
 void BoardGL::KeyDown(unsigned char key){

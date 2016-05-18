@@ -24,12 +24,12 @@ public:
 
 		//set initial position
 		for(int j=0; j<N; j++){
-			tab[0][j].setCell(0,j, Piece::DAMA_NEGRA);
+			tab[0][j].setCell(0,j, Piece::QUEEN_BLACK);
 		}
 
 				
 		for(int j=0; j<N; j++){
-			tab[N-1][j].setCell(0,j, Piece::DAMA_VERDE);
+			tab[N-1][j].setCell(0,j, Piece::QUEEN_GREEN);
 		}
 	}
 
